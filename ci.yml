@@ -1,7 +1,13 @@
-- name: trigger multiple Job
-  uses: appleboy/jenkins-action@master
-  with:
-    url: "https://2af8-2402-e280-3e71-42c-e8e0-9f03-9962-7769.ngrok-free.app"
-    user: "monica-ignitesol"
-    token: ${{ secrets.TOKEN }}
-    job: "Ignitepipeline"
+on:
+  pull_request:
+    branches:
+      - master
+    types: [closed]
+
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo The PR was merged
